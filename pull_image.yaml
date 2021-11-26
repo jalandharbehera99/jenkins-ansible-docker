@@ -1,5 +1,5 @@
 - name: pull centos image
-  hosts: dockerhost
+  hosts: webserver
   tasks: 
   - name: pull
     docker_image:
