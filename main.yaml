@@ -1,0 +1,38 @@
+- name: pull centos image
+  hosts: webserver
+  tasks: 
+  - name: pull
+    docker_image:
+        nanme:centos
+
+- name: create web image
+  hosts: webserver
+  tasks:
+  - name:build image
+    docker_image:
+        path: /root/docker_image
+        name: webimage      
+
+- name: cerate container
+    hosts: webserver
+    tasks:
+    - name: web container
+      docker_container
+        name: web
+        image: webimage
+        state: started
+        ports:
+        - "8085:80"
+        tty: true    
+        detach: true  
+
+  - name: validator
+    hosts: localhost
+    connection: localhost
+    tasks:
+    - name: validate docker container
+      url:
+        url: http://webserver:8085
+        return_content: yes
+      register: this
+      failed_when: "'hey there' not in this.container "
