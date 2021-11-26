@@ -1,5 +1,5 @@
 - name: create web image
-  hosts: dockerhost
+  hosts: webserver
   tasks:
   - name:build image
     docker_image:
