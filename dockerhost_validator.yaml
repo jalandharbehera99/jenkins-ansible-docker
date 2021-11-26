@@ -4,7 +4,7 @@
     tasks:
     - name: validate docker container
       url:
-        url: http://dockerhost:8085
+        url: http://webserver:8085
         return_content: yes
       register: this
       failed_when: "'hey there' not in this.container "
